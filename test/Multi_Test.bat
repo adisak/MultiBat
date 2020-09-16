@@ -6,15 +6,21 @@ REM  See Multi_License.txt for details
 
 REM TEST Multi
 REM :TestMultithreading
-call Multi_Setup.bat
 SETLOCAL
+SET PATH=%PATH%;..\scripts
+
+call Multi_Setup.bat
+
 SET MULTI_MAXCHILDREN=4
+
 call Multi_RunWin.bat pause
 call Multi_RunWin.bat pause
 call Multi_RunWin.bat pause
 call Multi_RunWin.bat pause
 call Multi_RunWin.bat pause
 call Multi_RunWin.bat pause
+
 call Multi_WaitChildren.bat
+
 ENDLOCAL
 goto:EOF
