@@ -5,11 +5,12 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_SetLimit
-if "%1"=="" GOTO :NoLimitSet
+
+if "%1"=="" (
+	if "%MULTI_MAXCHILDREN%"=="" call Multi_SetLimitToMax.bat
+	goto:EOF
+)
 
 SET /A MULTI_MAXCHILDREN=%1
 if %MULTI_MAXCHILDREN% LSS 1 SET MULTI_MAXCHILDREN=1
-GOTO:EOF
-
-:NoLimitSet
-if "%MULTI_MAXCHILDREN%"=="" call Multi_SetLimitToMax.bat
+goto:EOF

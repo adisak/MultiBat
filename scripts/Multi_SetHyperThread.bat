@@ -4,6 +4,8 @@ REM  Copyright (c) 2020 Adisak Pochanayon
 REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
+REM To Enable Hyperthreading, call Multi_SetHyperThread before calling Multi_Setup or Multi_SetLimitToMax
+
 REM :Multi_SetHyperThread
 
 REM Set variable NumberOfCores
@@ -29,5 +31,5 @@ if "%1"=="" (
 )
 
 REM Set the max threads to the limit for Hyperthreading
-call :Multi_SetLimitToMax.bat
+call Multi_SetLimitToMax.bat
 goto:EOF

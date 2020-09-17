@@ -5,6 +5,7 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_RunSyncMin
+
 REM Use this command to run things that mess with the window title
 REM and otherwise would screw up the "Multi" System
 start "Multi-Sync" /MIN /WAIT cmd /c %*

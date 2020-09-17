@@ -5,6 +5,7 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_SetName
+
 if "%1"=="" (
 	SET MULTI_CHILDPROC_WINNAME=Multi-CmdProc
 ) else (

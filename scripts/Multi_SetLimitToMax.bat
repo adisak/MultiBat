@@ -13,7 +13,7 @@ if "%NumberOfCores%"=="" (
 
 if %NUMBER_OF_PROCESSORS% LEQ 3 (
 	SET MULTI_MAXCHILDREN=1
-) ELSE (
+) else (
 	if "%NumberOfCores%"=="%NUMBER_OF_PROCESSORS%" (
 		REM Non-Hyperthreading
 		SET /A MULTI_MAXCHILDREN=%NUMBER_OF_PROCESSORS%-2

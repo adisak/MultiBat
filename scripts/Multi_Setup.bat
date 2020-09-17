@@ -11,7 +11,7 @@ call Multi_SetName.bat %1
 if "%2"=="" (
 	if "%NUMBER_OF_PROCESSORS%"=="" call Multi_SetLimitToMax.bat
 ) else (
-	call Multi_SetLimit %2
+	call Multi_SetLimit.bat %2
 )
 
 goto:EOF
