@@ -12,7 +12,7 @@ SET multi_WAITCOUNT=1
 
 if "%1"=="" GOTO :loop_WaitChildren
 SET /A multi_WAITCOUNT=%1
-if %WAITCOUNT% LSS 1 set multi_WAITCOUNT=1
+if %multi_WAITCOUNT% LSS 1 set multi_WAITCOUNT=1
 
 :loop_WaitChildren
 call Multi_GetNumChildren.bat
