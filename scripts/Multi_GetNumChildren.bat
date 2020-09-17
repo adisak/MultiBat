@@ -5,6 +5,9 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_GetNumChildren
+REM Returns: MULTI_NUM_CHILDREN - the number of "children" processes (Windows named MULTI_CHILDPROC_WINNAME)
+
+if "%MULTI_CHILDPROC_WINNAME%"=="" call Multi_SetName.bat
 
 REM SET MULTI_NUM_CHILDREN=0
 REM MULTI_NUM_CHILDREN should contain the number of 

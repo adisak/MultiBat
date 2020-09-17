@@ -7,6 +7,12 @@ REM  See Multi_License.txt for details
 REM To Enable Hyperthreading, call Multi_SetHyperThread before calling Multi_Setup or Multi_SetLimitToMax
 
 REM :Multi_SetHyperThread
+REM Parameter 1: (optional)
+REM		value=1	(or unspecified) - Use Hyperthreading if available
+REM		value=0 (or other) - Do not use Hyperthreading to compute the max threads
+REM Returns: NumberOfCores - number of real CPU cores
+REM Returns: MULTI_HAS_HYPERTHREADING - 1 if the CPU has Hyperthreading
+REM Returns: MULTI_USE_HYPERTHREADING - 1 if "Multi" should use Hyperthreading
 
 REM Set variable NumberOfCores
 if "%NumberOfCores%"=="" (
@@ -30,6 +36,6 @@ if "%1"=="" (
 	SET MULTI_USE_HYPERTHREADING=%1
 )
 
-REM Set the max threads to the limit for Hyperthreading
+REM Set the max threads to the limit (respecting Hyperthreading options)
 call Multi_SetLimitToMax.bat
 goto:EOF

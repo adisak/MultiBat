@@ -25,6 +25,7 @@ goto:EOF
 REM -----------------------------------
 
 :Multi_SetName
+REM Returns: MULTI_CHILDPROC_WINNAME - name to use for child processes (the window title)
 
 if "%1"=="" (
 	SET MULTI_CHILDPROC_WINNAME=Multi-CmdProc
@@ -38,6 +39,12 @@ REM -----------------------------------
 REM To Enable Hyperthreading, call Multi_SetHyperThread before calling Multi_Setup or Multi_SetLimitToMax
 
 :Multi_SetHyperThread
+REM Parameter 1: (optional)
+REM		value=1	(or unspecified) - Use Hyperthreading if available
+REM		value=0 (or other) - Do not use Hyperthreading to compute the max threads
+REM Returns: NumberOfCores - number of real CPU cores
+REM Returns: MULTI_HAS_HYPERTHREADING - 1 if the CPU has Hyperthreading
+REM Returns: MULTI_USE_HYPERTHREADING - 1 if "Multi" should use Hyperthreading
 
 REM Set variable NumberOfCores
 if "%NumberOfCores%"=="" (
@@ -61,13 +68,17 @@ if "%1"=="" (
 	SET MULTI_USE_HYPERTHREADING=%1
 )
 
-REM Set the max threads to the limit for Hyperthreading
+REM Set the max threads to the limit (respecting Hyperthreading options)
 call :Multi_SetLimitToMax
 goto:EOF
 
 REM -----------------------------------
 
 :Multi_SetLimit
+REM Parameter 1:
+REM		value=N	- Use N as the number of max threads
+REM		unspecified - Compute the default number of max threads
+REM Returns: MULTI_MAXCHILDREN - the maximum number of child processes to run simultaneously
 
 if "%1"=="" (
 	if "%MULTI_MAXCHILDREN%"=="" call :Multi_SetLimitToMax
@@ -81,10 +92,21 @@ goto:EOF
 REM -----------------------------------
 
 :Multi_SetLimitToMax
+REM Parameter 1: (optional)
+REM		Passed to Multi_SetHyperThread if present
+REM Returns: MULTI_MAXCHILDREN - max number of "threads" in pool for "Multi"
 
-REM Set variable NumberOfCores
-if "%NumberOfCores%"=="" (
-	for /f "tokens=*" %%f in ('wmic cpu get NumberOfCores /value ^| find "="') do set %%f
+if "%1"=="" (
+	REM Check if Hyperthreading support was initialized
+	if "%NumberOfCores%"=="" (
+		call :Multi_SetHyperThread 0
+		REM Multi_SetHyperThread calls back to this subroutine so exit to prevent recursion
+		goto:EOF
+	)
+) else (
+	call :Multi_SetHyperThread %1
+	REM Multi_SetHyperThread calls back to this subroutine so exit to prevent recursion
+	goto:EOF
 )
 
 if %NUMBER_OF_PROCESSORS% LEQ 3 (
@@ -107,6 +129,8 @@ REM -----------------------------------
 
 :Multi_RunWin
 
+if "%MULTI_CHILDPROC_WINNAME%"=="" call :Multi_SetName
+
 call :Multi_WaitChildrenMax
 start "%MULTI_CHILDPROC_WINNAME%" /BELOWNORMAL cmd /c %*
 goto:EOF
@@ -114,6 +138,8 @@ goto:EOF
 REM -----------------------------------
 
 :Multi_RunWinMin
+
+if "%MULTI_CHILDPROC_WINNAME%"=="" call :Multi_SetName
 
 call :Multi_WaitChildrenMax
 start "%MULTI_CHILDPROC_WINNAME%" /MIN /BELOWNORMAL cmd /c %*
@@ -131,6 +157,10 @@ goto:EOF
 REM -----------------------------------
 
 :Multi_WaitChildrenMax
+
+REM Wait until less than MULTI_MAXCHILDREN children are running
+
+if "%MULTI_MAXCHILDREN%"=="" call :Multi_SetLimitToMax
 
 call :Multi_WaitChildren %MULTI_MAXCHILDREN%
 goto:EOF
@@ -160,6 +190,9 @@ goto:EOF
 REM -----------------------------------
 
 :Multi_GetNumChildren
+REM Returns: MULTI_NUM_CHILDREN - the number of "children" processes (Windows named MULTI_CHILDPROC_WINNAME)
+
+if "%MULTI_CHILDPROC_WINNAME%"=="" call :Multi_SetName
 
 REM MULTI_NUM_CHILDREN should contain the number of 
 REM running %MULTI_CHILDPROC_WINNAME% instances after this

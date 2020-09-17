@@ -5,6 +5,8 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_WaitChildren
+REM Parameter 1: (optional)
+REM		value=N - wait until there are less than N children running
 
 SETLOCAL
 REM multi_WAITCOUNT is a local variable

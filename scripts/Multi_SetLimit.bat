@@ -5,6 +5,10 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_SetLimit
+REM Parameter 1:
+REM		value=N	- Use N as the number of max threads
+REM		unspecified - Compute the default number of max threads
+REM Returns: MULTI_MAXCHILDREN - the maximum number of child processes to run simultaneously
 
 if "%1"=="" (
 	if "%MULTI_MAXCHILDREN%"=="" call Multi_SetLimitToMax.bat

@@ -6,6 +6,8 @@ REM  See Multi_License.txt for details
 
 REM :Multi_RunWinMin
 
+if "%MULTI_CHILDPROC_WINNAME%"=="" call Multi_SetName.bat
+
 call Multi_WaitChildrenMax.bat
 start "%MULTI_CHILDPROC_WINNAME%" /MIN /BELOWNORMAL cmd /c %*
 goto:EOF

@@ -5,6 +5,7 @@ REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
 
 REM :Multi_SetName
+REM Returns: MULTI_CHILDPROC_WINNAME - name to use for child processes (the window title)
 
 if "%1"=="" (
 	SET MULTI_CHILDPROC_WINNAME=Multi-CmdProc
