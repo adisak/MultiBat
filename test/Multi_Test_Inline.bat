@@ -40,6 +40,7 @@ REM  "Multi" is a thread-pool emulation helper library for controlling multi-thr
 REM  Copyright (c) 2020-2021 Adisak Pochanayon
 REM  Contact: adisak@gmail.com
 REM  See Multi_License.txt for details
+REM  Currently hosted at https://github.com/adisak/MultiBat
 
 REM -----------------------------------
 
