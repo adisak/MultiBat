@@ -11,8 +11,8 @@ REM To Enable Hyperthreading, call Multi_SetHyperThread before calling Multi_Set
 
 REM :Multi_SetHyperThread
 REM Parameter 1: (optional)
+REM		value=0 - Do not use Hyperthreading to compute the max threads
 REM		value=1	(or unspecified) - Use Hyperthreading if available
-REM		value=0 (or other) - Do not use Hyperthreading to compute the max threads
 REM Returns: NumberOfCores - number of real CPU cores
 REM Returns: MULTI_HAS_HYPERTHREADING - 1 if the CPU has Hyperthreading
 REM Returns: MULTI_USE_HYPERTHREADING - 1 if "Multi" should use Hyperthreading
@@ -31,12 +31,12 @@ if "%MULTI_HAS_HYPERTHREADING%"=="" (
 		REM Hyperthreading
 		SET MULTI_HAS_HYPERTHREADING=1
 	)
-}
+)
 
-if "%1"=="" (
-	SET MULTI_USE_HYPERTHREADING=%MULTI_HAS_HYPERTHREADING%
+if "%1"=="0" (
+	SET MULTI_USE_HYPERTHREADING=0
 ) else (
-	SET MULTI_USE_HYPERTHREADING=%1
+	SET MULTI_USE_HYPERTHREADING=%MULTI_HAS_HYPERTHREADING%
 )
 
 REM Set the max threads to the limit (respecting Hyperthreading options)

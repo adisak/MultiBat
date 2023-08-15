@@ -12,7 +12,7 @@ REM :Multi_Setup
 call Multi_SetName.bat %1
 
 if "%2"=="" (
-	if "%NUMBER_OF_PROCESSORS%"=="" call Multi_SetLimitToMax.bat
+	call Multi_SetLimitToMax.bat
 ) else (
 	call Multi_SetLimit.bat %2
 )
