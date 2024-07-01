@@ -11,6 +11,6 @@ REM :Multi_RunWinMin
 
 if "%MULTI_CHILDPROC_WINNAME%"=="" call Multi_SetName.bat
 
-call Multi_WaitChildrenMax.bat
+call Multi_WaitChildrenMax.bat 0
 start "%MULTI_CHILDPROC_WINNAME%" /MIN /BELOWNORMAL cmd /c %*
 goto:EOF
